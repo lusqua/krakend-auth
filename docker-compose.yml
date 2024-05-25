@@ -1,0 +1,18 @@
+version: "3"
+services:
+  krakend_ce:
+    image: devopsfaith/krakend:watch
+    volumes:
+      - ./krakend:/etc/krakend
+    ports:
+      - "1234:1234"
+      - "8080:8080"
+      - "8090:8090"
+    command: ["run", "-d", "-c", "/etc/krakend/krakend.json"]
+    depends_on:
+      - auth_provider
+
+  auth_provider:
+    build:
+      context: ./auth-provider
+      dockerfile: Dockerfile
